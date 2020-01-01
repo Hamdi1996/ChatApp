@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row columns">
+        <div id="idface">
+            <input type="text" id="message" placeholder="Your chat message here..." [(ngModel)]="msg" #message>
+            <input type="submit" class="submit" value="Send now" (click)="send(message.value)">
+
+            <div class="details-container" *ngFor="let item of items | async; let i=index">
+                <div class="row">
+                    <div class="medium-9 columns">
+                       <div *ngIf="(editId == i) && editMsg;then showEdit else showMsg"></div>
+                       <ng-template #showMsg>
+                            <p>{{ item.message }}</p>
+                        </ng-template>
+
+                       <ng-template #showEdit>
+                            <input type="text" value="{{ item.message }}" (keyup.enter)="editItem(item.key,$event.target.value)">
+                        </ng-template>
+                    </div>
+                    <div class="medium-3 columns">
+                        <button (click)="deleteItem(item.key)">Delete</button>
+                        <button (click)="(editMsg=true) && editId = i">Edit</button>
+                    </div>
+                </div>
+            </div>
+
+           
+
+        </div>
+    </div>
+</div>
